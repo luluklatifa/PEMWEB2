@@ -4,26 +4,27 @@ namespace App\Controllers;
 
 class Page extends BaseController
 {
+    public function index()
+    {
+        $data = [
+            'title' => 'Selamat Datang | Website Anda'
+        ];
+        echo view('layout/header', $data);
+        echo view('pages/home', $data);
+        echo view('layout/footer', $data);
+    }
     public function about()
     {
-        echo "about page";
+        $data = [
+            'title' => 'Selamat Datang | Website Anda'
+        ];
+        echo view('layout/header', $data);
+        echo view('pages/about', $data);
+        echo view('layout/footer', $data);
     }
-    public function contact()
-    {
-        echo "contact page";
-    }
-    public function faqs()
-    {
-        echo "faqs page";
-    }
-    public function tos()
-    {
-        echo "Halaman Term of Service";
-    }
-    public function biodata()
-    {
-        echo "NAMA  : Luluk Latifa Aulia <br/>";
-        echo "TTL   : Jombang, 13 Juni 2004 <br/>";
-        echo "Agama : Islam <br/>"; 
-    }
+    
 }
+$data = [
+    'title' => 'Home | Unipdu Press',
+    'tes' => ['satu', 'dua', 'tiga']
+];
