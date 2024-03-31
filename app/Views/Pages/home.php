@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+<?= $this->extend('layout/template'); ?>
+<?= $this->section('content'); ?>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Home</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Pemrograman WEB II SAINTEK</title>
-</head>
-
-<body>
-    <h1>Hello World</h1>
-</body>
-
-</html>
+        </div>
+    </div>
+</div>
+<?= $this->endSection(); ?>

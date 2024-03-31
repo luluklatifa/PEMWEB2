@@ -7,24 +7,30 @@ class Page extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Selamat Datang | Website Anda'
+            'title' => 'Selamat Datang | Website Anda',
+            'tes' => ['satu', 'dua', 'tiga']
         ];
-        echo view('layout/header', $data);
-        echo view('pages/home', $data);
-        echo view('layout/footer', $data);
+
+        return view('pages/home', $data);
     }
     public function about()
     {
         $data = [
-            'title' => 'Selamat Datang | Website Anda'
+            'title' => 'Selamat Datang | Website Anda',
+            'tes' => ['satu', 'dua', 'tiga']
         ];
-        echo view('layout/header', $data);
-        echo view('pages/about', $data);
-        echo view('layout/footer', $data);
+
+        return view('pages/about', $data);
     }
-    
+    public function contact()
+    {
+        $data = [
+            'title' => 'Contact | Unipdu Press',
+            'alamat' => [
+                ['tipe' => 'Rumah', 'alamat' => 'Janti Jogoroto', 'kota' => 'Jombang'],
+                ['tipe' => 'kantor', 'alamat' => 'Kompleks Ponpes Darul Ulum Peterongan', 'kota' => 'Jombang']
+            ]
+        ];
+        return view('pages/contact', $data);
+    }
 }
-$data = [
-    'title' => 'Home | Unipdu Press',
-    'tes' => ['satu', 'dua', 'tiga']
-];
