@@ -11,13 +11,19 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title"><?= $buku['judul'];?></h5>
+                            <h5 class="card-title"><?= $buku['judul']; ?></h5>
                             <p class="card-text"><b>Penulis : </b> <?= $buku['penulis']; ?></p>
                             <p class="card-text"><small class="text-body-secondary"><b>Penerbit :</b> <?= $buku['penerbit']; ?></small></p>
-                            
+
 
                             <a href="" class="btn btn-warning">Ubah</a>
-                            <a href="" class="btn btn-danger">Hapus</a>
+
+                            <form action="/books/delete/<?= $buku['id']; ?>" method="post" class="d-inline">
+                                <?= csrf_field(); ?>
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('apakah anda yakin menghapus data ini?')">Hapus</button>
+                            </form>
+                            <!-- <a href="" class="btn btn-danger">Hapus</a> -->
                             <br><br>
                             <a href="/book">Kembali ke Daftar Buku</a>
                         </div>

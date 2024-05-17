@@ -1,5 +1,6 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
+
 <div class="container">
     <div class="row">
         <div class="col-8">
@@ -10,19 +11,35 @@
                 <div class="row mb-3">
                     <label for="judul" class="col-sm-2 col-form-label">Judul</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="judul" name="judul" autofocus>
+
+                        <input type="judul" class="form-control <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= old('judul'); ?>">
+                        <div class="invalid-feedback">
+                            <?= $validation->getError('judul'); ?>
+                        </div>
+
+                        <!-- <input type="text" class="form-control" id="judul" name="judul" autofocus> -->
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="penulis" class="col-sm-2 col-form-label">Penulis</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="penulis" name="penulis">
+
+                        <input type="penulis" class="form-control <?= ($validation->hasError('penulis')) ? 'is-invalid' : ''; ?>" id="penulis" name="penulis" autofocus value="<?= old('penulis'); ?>">
+                        <div class="invalid-feedback">
+                            <?= $validation->getError('penulis'); ?>
+                        </div>
+                        <!-- <input type="text" class="form-control" id="penulis" name="penulis"> -->
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="penerbit" class="col-sm-2 col-form-label">Penerbit</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="penerbit" name="penerbit">
+
+                        <input type="penerbit" class="form-control <?= ($validation->hasError('penerbit')) ? 'is-invalid' : ''; ?>" id="penerbit" name="penerbit" autofocus value="<?= old('penerbit'); ?>">
+                        <div class="invalid-feedback">
+                            <?= $validation->getError('penerbit'); ?>
+                        </div>
+                        <!-- <input type="text" class="form-control" id="penerbit" name="penerbit"> -->
                     </div>
                 </div>
                 <div class="row mb-3">
