@@ -16,7 +16,7 @@
                             <p class="card-text"><small class="text-body-secondary"><b>Penerbit :</b> <?= $buku['penerbit']; ?></small></p>
 
 
-                            <a href="" class="btn btn-warning">Ubah</a>
+                            <a href="/books/edit/<?= $buku['slug']; ?>" class="btn btn-warning">Ubah</a>
 
                             <form action="/books/delete/<?= $buku['id']; ?>" method="post" class="d-inline">
                                 <?= csrf_field(); ?>
