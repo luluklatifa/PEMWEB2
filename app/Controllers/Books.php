@@ -69,12 +69,36 @@ class Books extends BaseController
                     'required' => '{field} buku harus di isi.',
                     'is_unique' => '{field} buku sudah terdaftar'
                 ]
+            ],
+            'sampul' => [
+                'rules' => 'max_size[sampul,1024]|is_image[sampul]|ext_in[sampul,jpg,jpeg,png]',
+                'error' => [
+                    // 'uploaded'  => 'Pilih gambar ynag sesuai.',
+                    'max_size' => 'Ukuran file terlalu besar',
+                    'is_image'  => 'Yang anda pilih bukan gambar.',
+                    'ext_in'   => 'Sampul buku harus berekstensi png,jpg,jpeg.'
+                ]
             ]
 
         ])) {
-            session()->setFlashdata('validation', \Config\Services::validation());
-            return redirect()->to('/book/create')->withInput();
+            // session()->setFlashdata('validation', \Config\Services::validation());
+            // return redirect()->to('/books/create')->withInput();
+            return redirect()->to('/books/create')->withInput()->with('errors', $this->validator->getErrors());
         }
+
+        $gambarSampul = $this->request->getFile('sampul');
+        // $namaSampul = $gambarSampul->getRandomName();
+        // $gambarSampul->move('img');
+        // $namaSampul = $gambarSampul->getName();
+
+        if ($gambarSampul->getError() == 4) {
+            $namaSampul = 'no-cover.jpg';
+        } else {
+            $namaSampul = $gambarSampul->getRandomName();
+            $gambarSampul->move('img', $namaSampul);
+        }
+
+
 
         // url_title digunakan untuk membuat field slug pada database terisi otomatis
         $slug = url_title($this->request->getVar('judul'), '-', true);
@@ -83,7 +107,7 @@ class Books extends BaseController
             'slug'      => $slug,
             'penulis'   => $this->request->getVar('penulis'),
             'penerbit'  => $this->request->getVar('penerbit'),
-            'cover'     => $this->request->getVar('cover')
+            'sampul'     => $namaSampul
         ]);
 
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
@@ -92,6 +116,11 @@ class Books extends BaseController
     }
     public function delete($id)
     {
+        $buku = $this->bukuModel->find($id);
+        if ($buku['sampul'] != 'no-cover.jpg') {
+            unlink('img/' . $buku['sampul']);
+        }
+
         $this->bukuModel->delete($id);
         session()->setFlashdata('pesan', 'Data berhasil dihapus');
         return redirect()->to('/book');
@@ -142,10 +171,30 @@ class Books extends BaseController
                     'is_unique' => '{field} buku sudah terdaftar'
                 ]
             ],
+            'sampul' => [
+                'rules' => 'max_size[sampul,1024]|is_image[sampul]|ext_in[sampul,jpg,jpeg,png]',
+                'error' => [
+                    // 'uploaded'  => 'Pilih gambar ynag sesuai.',
+                    'max_size' => 'Ukuran file terlalu besar',
+                    'is_image'  => 'Yang anda pilih bukan gambar.',
+                    'ext_in'   => 'Sampul buku harus berekstensi png,jpg,jpeg.'
+                ]
+            ]
+
 
         ])) {
-            $validation = \Config\Services::validation();
-            return redirect()->to('/book/edit/' . $this->request->getVar('slug'))->withInput()->with('validation', $validation);
+            // $validation = \Config\Services::validation();
+            return redirect()->to('/book/edit/' . $this->request->getVar('slug'))->withInput()->with('errors', $this->validator->getErrors());
+            // return redirect()->to('/books/edit')->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $gambarSampul = $this->request->getFile('sampul');
+        if ($gambarSampul->getError() == 4) {
+            $namaSampul = $this->request->getVar('sampulLama');
+        } else {
+            $namaSampul = $gambarSampul->getRandomName();
+            $gambarSampul->move('img', $namaSampul);
+            unlink('img/' . $this->request->getVar('sampulLama'));
         }
 
         $slug = url_title($this->request->getVar('judul'), '-', true);

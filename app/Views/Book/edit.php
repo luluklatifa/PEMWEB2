@@ -4,17 +4,28 @@
     <div class="row">
         <div class="col-8">
             <h2 class="my-3">Form Ubah Data Buku</h2>
+            <?php if (session()->has('errors')) : ?>
+                <!-- <ul class="alert alert-danger">
+                    <?php
+                    // echo (session('errors')['judul']);
+                    // foreach (session('errors') as $error) : 
+                    ?>
+                </ul> -->
+            <?php endif ?>
 
-            <form action="/books/update/<?= $buku['id']; ?>" method="POST">
+
+            <form action="/books/update/<?= $buku['id']; ?>" method="POST" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
 
                 <input type="hidden" name="slug" value="<?= $buku['slug']; ?>">
+                <input type="hidden" name="sampulLama" value="<?= $buku['sampul']; ?>">
+
                 <div class="row mb-3">
                     <label for="judul" class="col-sm-2 col-form-label">Judul</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= (old('judul')) ? old('judul') : $buku['judul']; ?>">
+                        <input type="judul" class="form-control <?= (session()->has('errors')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= old('judul'); ?>">
                         <div class="invalid-feedback">
-                            <?= $validation->getError('judul'); ?>
+                            <?= (session()->has('errors')) ? (session('errors')['judul']) : ''; ?>
                         </div>
                     </div>
                 </div>
@@ -22,9 +33,9 @@
                     <label for="penulis" class="col-sm-2 col-form-label">Penulis</label>
                     <div class="col-sm-10">
 
-                        <input type="penulis" class="form-control <?= ($validation->hasError('penulis')) ? 'is-invalid' : ''; ?>" id="penulis" name="penulis" autofocus value="<?= old('penulis'); ?>">
+                        <input type="penulis" class="form-control <?= (session()->has('errors')) ? 'is-invalid' : ''; ?>" id="penulis" name="penulis" autofocus value="<?= old('penulis'); ?>">
                         <div class="invalid-feedback">
-                            <?= $validation->getError('penulis'); ?>
+                            <?= (session()->has('errors')) ? (session('errors')['penulis']) : ''; ?>
                         </div>
 
                         <!-- <input type="text" class="form-control" id="penulis" name="penulis" value="<?= (old('penulis')) ? old('penulis') : $buku['penulis']; ?>"> -->
@@ -34,9 +45,9 @@
                     <label for="penerbit" class="col-sm-2 col-form-label">Penerbit</label>
                     <div class="col-sm-10">
 
-                        <input type="penerbit" class="form-control <?= ($validation->hasError('penerbit')) ? 'is-invalid' : ''; ?>" id="penerbit" name="penerbit" autofocus value="<?= old('penerbit'); ?>">
+                        <input type="penerbit" class="form-control <?= (session()->has('errors')) ? 'is-invalid' : ''; ?>" id="penerbit" name="penerbit" autofocus value="<?= old('penerbit'); ?>">
                         <div class="invalid-feedback">
-                            <?= $validation->getError('penerbit'); ?>
+                            <?= (session()->has('errors')) ? (session('errors')['penerbit']) : ''; ?>
                         </div>
 
                         <!-- <input type="text" class="form-control" id="penerbit" name="penerbit" value="<?= (old('penerbit')) ? old('penerbit') : $buku['penerbit']; ?>"> -->
@@ -44,12 +55,21 @@
                 </div>
                 <div class="row mb-3">
                     <label for="sampul" class="col-sm-2 col-form-label">Sampul</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="sampul" name="sampul" value="<?= (old('sampul')) ? old('sampul') : $buku['sampul']; ?>">
+                    <div class="col-sm-2">
+                        <img src="/img/no-cover.jpg" class="img-thumbnail img-preview">
                     </div>
-                </div>
+                    <div class="col-sm-8">
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control <?= (session()->has('errors')) ? 'is-invalid' : ''; ?>" id="sampul" name="sampul" onchange="previewImg()">
+                            <div class="invalid-feedback">
+                                <?= (session()->has('errors')) ? (session('errors')['sampul']) : ''; ?>
+                            </div>
+                            <label class="input-group-text" for="Sampul">Upload</label>
+                        </div>
+                    </div>
 
-                <button type="submit" class="btn btn-primary">Ubah Data</button>
+                    <button type="submit" class="btn btn-primary">Ubah Data</button>
+
             </form>
 
 
