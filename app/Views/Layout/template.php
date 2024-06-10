@@ -20,8 +20,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="<?= base_url('/') ?>">Home</a>
-          <a class="nav-link" aria-current="about" href="<?= base_url('/about') ?>">About</a>
+          <a class="nav-link active" aria-current="page" href="<?= base_url('/') ?>">Daftar Buku</a>
+          <a class="nav-link" aria-current="about" href="<?= base_url('/penulis') ?>">Daftar Penulis</a>
           <a class="nav-link" aria-current="contact" href=<?= base_url('/contact') ?>>Contact</a>
           <a class="nav-link disabled" aria-disabled="true" href="/">Disabled</a>
         </div>
@@ -33,22 +33,22 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
-<script>
-  function previewImg(){
-    const sampul = document.querySelector('#sampul');
-    const sampulLabel = document.querySelector('.input-group-text');
-    const imgPreview = document.querySelector('.img-preview');
+  <script>
+    function previewImg() {
+      const sampul = document.querySelector('#sampul');
+      const sampulLabel = document.querySelector('.input-group-text');
+      const imgPreview = document.querySelector('.img-preview');
 
-    sampulLabel.textContent = sampul.files[0].name;
+      sampulLabel.textContent = sampul.files[0].name;
 
-    const fileSampul = new FileReader();
-    fileSampul.readAsDataURL(sampul.files[0]);
+      const fileSampul = new FileReader();
+      fileSampul.readAsDataURL(sampul.files[0]);
 
-    fileSampul.onload = function(e) {
-      imgPreview.src = e.target.result;
+      fileSampul.onload = function(e) {
+        imgPreview.src = e.target.result;
+      }
     }
-  }
-</script>
+  </script>
 </body>
 
 </html>
